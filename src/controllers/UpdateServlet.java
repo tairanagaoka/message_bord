@@ -31,21 +31,21 @@ public class UpdateServlet extends HttpServlet {
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String _token=request.getParameter("_token");
-        if(_token !=null && _token.equals(request.getSession().getId())) {
-            EntityManager em=DBUtil.createEntityManager();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String _token = request.getParameter("_token");
+        if (_token != null && _token.equals(request.getSession().getId())) {
+            EntityManager em = DBUtil.createEntityManager();
 
-            Message m=em.find(Message.class,(Integer)(request.getSession().getAttribute("message_id")));
+            Message m = em.find(Message.class, (Integer) (request.getSession().getAttribute("message_id")));
 
-
-            String title=request.getParameter("title");
+            String title = request.getParameter("title");
             m.setTitle(title);
 
-            String content =request.getParameter("content");
+            String content = request.getParameter("content");
             m.setContent(content);
 
-            Timestamp currentTime=new Timestamp(System.currentTimeMillis());
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             m.setUpdated_at(currentTime);
 
             em.getTransaction().begin();
@@ -53,8 +53,7 @@ public class UpdateServlet extends HttpServlet {
 
             request.getSession().removeAttribute("message_id");
 
-            response.sendRedirect(request.getContextPath()+"/index");
-
+            response.sendRedirect(request.getContextPath() + "/index");
 
         }
     }
