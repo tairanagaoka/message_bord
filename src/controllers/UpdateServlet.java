@@ -50,7 +50,7 @@ public class UpdateServlet extends HttpServlet {
 
             em.getTransaction().begin();
             em.getTransaction().commit();
-
+            request.getSession().setAttribute("flush", "登録が完了しました。");
             request.getSession().removeAttribute("message_id");
 
             response.sendRedirect(request.getContextPath() + "/index");
